@@ -7,8 +7,8 @@ const Particles = () => {
     const { viewport } = useThree();
 
     // User: "Add a bit more particles"
-    const countX = 80;
-    const countY = 45;
+    const countX = 100;
+    const countY = 55;
     const count = countX * countY;
 
     // Use a Plane for the pill shape. We will stretch it in the shader.
@@ -207,7 +207,7 @@ const Particles = () => {
         // Spread them out more since we reduced count
         const gridWidth = 40;
         const gridHeight = 22;
-        const jitter = 0.6; // High jitter for "not a perfect grid"
+        const jitter = 0.25; // Subtle jitter - more grid-like but still organic
 
         let i = 0;
         for (let y = 0; y < countY; y++) {
