@@ -16,7 +16,7 @@ const Particles = () => {
 
     const uniforms = useMemo(() => ({
         uTime: { value: 0 },
-        uMouse: { value: new THREE.Vector2(999, 999) },
+        uMouse: { value: new THREE.Vector2(0, 0) },
         uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
     }), []);
 
@@ -73,8 +73,8 @@ const Particles = () => {
                 float dy = cos(driftSpeed + pos.x * 0.5) + cos(driftSpeed * 0.5 + pos.x * 2.0);
                 
                 // subtle constant movement
-                pos.x += dx * 0.15; 
-                pos.y += dy * 0.15;
+                pos.x += dx * 0.25; 
+                pos.y += dy * 0.25;
 
                 // --- 2. THE JELLYFISH HALO (Smooth & Subtle) ---
                 
@@ -105,8 +105,8 @@ const Particles = () => {
                 vec2 pushDir = normalize(relToMouse + vec2(0.0001, 0.0));
                 
                 // Align push with the breath cycle
-                // When breath is expanding (breathCycle > 0), push out slightly
-                float pushAmt = (breathCycle * 0.5 + 0.5) * 0.2; // 0 to 0.2
+                // Increased push for "more alive" feeling
+                float pushAmt = (breathCycle * 0.5 + 0.5) * 0.5; // 0 to 0.5
                 
                 // Apply push mostly near the ring
                 pos.xy += pushDir * pushAmt * rimInfluence;
@@ -274,8 +274,10 @@ const Particles = () => {
         const current = material.uniforms.uMouse.value;
 
         // "Heavy" Drag: Reduced to 0.015 for more weight
-        const dragFactor = 0.015;
+        const dragFactor = 0.055;
 
+        // If it's the very first frame or mouse just entered, we might want to snap
+        // but for now, initializing to 0,0 already makes it appear instantly at center.
         current.x += (targetX - current.x) * dragFactor;
         current.y += (targetY - current.y) * dragFactor;
     });

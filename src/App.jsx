@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import Particles from './assets/antigravity';
+import Particles from './assets/medusae';
 import './App.css';
 
 function App() {
